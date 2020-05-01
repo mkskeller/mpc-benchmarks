@@ -19,12 +19,22 @@ import org.slf4j.LoggerFactory;
  */
 public class InnerProductParty {
 
-  private static final List<Integer> ALICE_VECTOR = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-  private static final List<Integer> BOB_VECTOR = Arrays.asList(10, 20, 30, 40, 50, 60, 70, 80, 90, 100);
+  private static List<Integer> ALICE_VECTOR;
+  private static List<Integer> BOB_VECTOR;
 
   private static final Logger logger = LoggerFactory.getLogger(InnerProductParty.class);
 
   public static void main(String[] args) throws IOException {
+    int n = 100000;
+    Integer[] a = new Integer[n];
+    Integer[] b = new Integer[n];
+    for (int i = 0 ; i < n; i++)
+	{
+	    a[i] = i;
+	    b[i] = 10 * i;
+	}
+    ALICE_VECTOR = Arrays.asList(a);
+    BOB_VECTOR = Arrays.asList(b);
     int partyId = partyIdFromArgs(args);
     logInfo();
     HashMap<Integer, Party> parties = new HashMap<>();
