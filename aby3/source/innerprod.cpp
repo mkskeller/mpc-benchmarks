@@ -46,8 +46,7 @@ void innerprod_test(oc::u64 partyIdx, std::vector<int>values) {
 	// parallel multiplications
 	si64Matrix sum(1, 1);
 	Sh3Task task = runtime.noDependencies();
-	for (u64 i = 0; i < rows; ++i)
-		task = eval.asyncMul(task, A, B, sum);
+	task = eval.asyncMul(task, A, B, sum);
 	task.get();
 
 	// reveal result
