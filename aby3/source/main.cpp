@@ -61,7 +61,7 @@ int main(int argc, char** argv)
 				mult3_test(player, value);
 			}
 			if (cmd.getOr(unitTestTag, none).compare("innerprod") == 0) {
-				std::vector<int> values(10);
+				std::vector<int> values(100000);
 				for(uint i=0; i<values.size(); i++) {
 					values[i] = 1; // todo make this random
 				}
@@ -69,7 +69,8 @@ int main(int argc, char** argv)
 			}
 			if (cmd.getOr(unitTestTag, none).compare("xtabs") == 0) {
 				//xtabs_test(player);
-				xtabs_test();
+			  //xtabs_test();
+			  throw std::runtime_error("not implemented");
 			}
 
 			return 0;

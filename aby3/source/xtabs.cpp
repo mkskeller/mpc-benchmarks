@@ -15,6 +15,7 @@ void xtabs_test( u64 partyIdx, std::vector<int> ids, std::vector<int> values){
     IOService ios;
     
     DBServer srv;
+    /*
     if (partyIdx == 0) {
       Session s01(ios, "127.0.0.1:3030", SessionMode::Server, "01");
       Session s02(ios, "127.0.0.1:3031", SessionMode::Server, "02");
@@ -29,6 +30,7 @@ void xtabs_test( u64 partyIdx, std::vector<int> ids, std::vector<int> values){
       Session s21(ios, "127.0.0.1:3032", SessionMode::Client, "12");
       srv.init(2, s21, s20);
     }
+    */
 
     // 80 bits;
     u32 hashSize = 80;

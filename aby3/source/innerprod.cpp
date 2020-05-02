@@ -22,39 +22,36 @@ void innerprod_test(oc::u64 partyIdx, std::vector<int>values) {
 
 	// encrypt (only parties 0,1 provide input)
 	u64 rows = values.size();
-	std::vector<si64> A(rows);
-	std::vector<si64> B(rows);
-	
-	// note: this fails if you try to make multiple local/remote calls in the same if/else statement
-	// maybe could fix this with tasks? 
-	for (int i=0; i<10; i++) {
-		if (partyIdx == 0) {
-			enc.localInt(runtime, values[i], A[i]).get();
-		} else {
-			enc.remoteInt(runtime, A[i]).get();
-		}
-		
-		if (partyIdx == 1) {
-			enc.localInt(runtime, values[i], B[i]).get();
-		} else {
-			enc.remoteInt(runtime, B[i]).get();
-		}
+	si64Matrix A(1, rows);
+	si64Matrix B(rows, 1);
+
+	if (partyIdx == 0) {
+	    i64Matrix input(1, rows);
+	    for (unsigned i = 0; i < rows; i++)
+	      input(0, i) = values[i];
+	    enc.localIntMatrix(runtime, input, A).get();
+	} else {
+	    enc.remoteIntMatrix(runtime, A).get();
+	}
+
+	if (partyIdx == 1) {
+        i64Matrix input(rows, 1);
+        for (unsigned i = 0; i < rows; i++)
+            input(i, 0) = values[i];
+        enc.localIntMatrix(runtime, input, B).get();
+	} else {
+	    enc.remoteIntMatrix(runtime, B).get();
 	}
 	
 	// parallel multiplications
-	std::vector<si64> prods(rows);
+	si64Matrix sum(1, 1);
 	Sh3Task task = runtime.noDependencies();
 	for (u64 i = 0; i < rows; ++i)
-		task = eval.asyncMul(task, B[i], A[i], prods[i]);
+		task = eval.asyncMul(task, A, B, sum);
 	task.get();
 
-	// addition
-	si64 sum = prods[0];
-	for (u64 i = 1; i < rows; ++i)
-		sum = sum + (si64) prods[i];
-
 	// reveal result
-	i64 result;
+	i64Matrix result;
 	enc.revealAll(runtime, sum, result).get();
-	std::cout << "result: " << result << std::endl;
+	std::cout << "result: " << result(0, 0) << std::endl;
 }
