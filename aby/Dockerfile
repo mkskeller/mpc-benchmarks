@@ -11,11 +11,12 @@ RUN apt-get update && apt-get install -y \
   software-properties-common \
   vim \
   wget
-ADD source/ /root/source
-ADD README.md .
 
 ADD install_dependencies.sh .
 RUN ["bash", "install_dependencies.sh"]
+
+ADD source/ /root/source
+ADD README.md .
 
 ADD install.sh .
 RUN ["bash", "install.sh"]
