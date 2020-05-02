@@ -4,7 +4,7 @@ from mpyc.runtime import mpc
 async def main():
 
     # initialize mpc, define secure int type
-    LEN = 10
+    LEN = 100000
     await mpc.start()
     secint = mpc.SecInt(64)
 
