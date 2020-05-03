@@ -17,3 +17,6 @@ RUN ["bash", "install.sh"]
 
 ADD source/ /root/
 ADD ./README.md .
+
+ADD run.sh .
+RUN bash run.sh
