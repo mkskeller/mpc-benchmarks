@@ -15,3 +15,6 @@ ADD source/mult3 /root/ObliVMLang/examples/mult3
 ADD source/innerProd /root/ObliVMLang/examples/innerProd
 ADD source/xtabs /root/ObliVMLang/examples/xtabs
 ADD source/genInput.py /root/ObliVMLang/
+
+ADD run.sh .
+RUN bash run.sh
