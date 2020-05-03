@@ -3,7 +3,7 @@
 using namespace emp;
 using namespace std;
 
-int LEN = 10;
+int LEN = 10000;
 
 void test_innerprod(int bitsize, string inputs_a[], string inputs_b[], int len) {
 
