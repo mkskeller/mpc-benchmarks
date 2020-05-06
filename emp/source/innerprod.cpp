@@ -3,14 +3,14 @@
 using namespace emp;
 using namespace std;
 
-int LEN = 10000;
+int LEN = 100000;
 
 void test_innerprod(int bitsize, string inputs_a[], string inputs_b[], int len) {
 
     Integer sum(bitsize, 0, PUBLIC);
     Integer prod(bitsize, 0, PUBLIC);
-	Integer a[len];
-	Integer b[len];
+	Integer* a = new Integer[len];
+	Integer* b = new Integer[len];
 
     for( int i=0; i<len; i++) {
         a[i] = Integer(bitsize, inputs_a[i], ALICE);
@@ -66,8 +66,8 @@ int main(int argc, char** argv) {
     ifstream infile_a(fname_a);
     ifstream infile_b(fname_b);
 
-    string inputs_a[LEN];
-    string inputs_b[LEN];
+    string* inputs_a = new string[LEN];
+    string* inputs_b = new string[LEN];
 
     if( infile_a.is_open() && infile_b.is_open()) {
         for( int i=0; i<LEN; i++) {
