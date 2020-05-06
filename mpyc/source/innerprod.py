@@ -6,7 +6,7 @@ async def main():
     # initialize mpc, define secure int type
     LEN = 100000
     await mpc.start()
-    secint = mpc.SecInt(64)
+    secint = mpc.SecInt(128)
 
     # initialize inputs
     values = [np.random.randint(1,1000) for _ in range(LEN)]
