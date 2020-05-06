@@ -3,11 +3,12 @@
 cd 
 git clone https://github.com/KULeuven-COSIC/SCALE-MAMBA.git
 cd SCALE-MAMBA
-git checkout -b MPCSOK d7c960afd
+git checkout -b v1.8.1 e3488e646ed71e8d3264e2f3fe8e2226d4d503a9
 cp /root/source/CONFIG.mine .
 make progs
 
 # set up certificate authority
+touch ~/.rnd # see: https://github.com/openssl/openssl/issues/7754
 SUBJ="/CN=www.example.com"
 cd Cert-Store
 
