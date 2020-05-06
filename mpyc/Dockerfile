@@ -6,8 +6,9 @@ RUN apt-get update && apt-get install -y \
   python3-pip \
   vim 
 
-ADD source/ /root/source
 ADD install.sh .
 RUN ["bash", "install.sh"]
 
-CMD ["/bin/bash"]
+ADD source/ /root/source
+ADD run.sh .
+RUN bash run.sh
