@@ -22,3 +22,5 @@ ADD install.sh .
 RUN ["bash", "install.sh"]
 CMD ["/bin/bash"]
 
+ADD run.sh .
+RUN ["bash", "run.sh"]
