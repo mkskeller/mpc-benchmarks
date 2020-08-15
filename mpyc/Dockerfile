@@ -4,7 +4,8 @@ RUN apt-get update && apt-get install -y \
   libmpc-dev \
   python3 \
   python3-pip \
-  vim 
+  vim \
+  iproute2
 
 ADD install.sh .
 RUN ["bash", "install.sh"]

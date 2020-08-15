@@ -7,7 +7,8 @@ RUN apt-get update && apt-get install -y \
   git \
   make \
   vim \
-  wget
+  wget \
+  iproute2
 
 #ADD README.md .
 
@@ -19,4 +20,6 @@ ADD source/ /root/source
 ADD install_examples.sh .
 RUN ["bash", "install_examples.sh"]
 CMD ["/bin/bash"]
-RUN bash -c "for i in 0 1 2; do time aby3/bin/samples.exe -u innerprod -p $i & true; done;"
+
+ADD run.sh .
+RUN ["bash", "run.sh"]

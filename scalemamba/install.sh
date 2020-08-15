@@ -1,10 +1,10 @@
 
 # download SCALE-MAMBA v1.5
 cd 
-git clone https://github.com/KULeuven-COSIC/SCALE-MAMBA.git
 cd SCALE-MAMBA
 git checkout -b v1.8.1 e3488e646ed71e8d3264e2f3fe8e2226d4d503a9
 cp /root/source/CONFIG.mine .
+patch -p1 < /root/source/bench.patch
 make progs
 
 # set up certificate authority
@@ -20,7 +20,7 @@ openssl req -new -x509 -days 1826 -key RootCA.key \
 mkdir csr
 for ID in {0..3}
 do
-  SUBJ="/CN=player$ID@example.com"
+  SUBJ="/CN=P$ID"
   openssl genrsa -out Player$ID.key 2048
   openssl req -new -key Player$ID.key -subj $SUBJ -out csr/Player$ID.csr
   openssl x509 -req -days 1000 -set_serial 101$ID \
@@ -42,3 +42,7 @@ mkdir -p .vim/syntax
 mv source/mamba.vim .vim/syntax
 mkdir .vim/ftdetect
 echo "au BufNewFile,BufRead *.mpc set filetype=mamba" > .vim/ftdetect/mamba.vim
+
+cd ~/SCALE-MAMBA
+cp -av Auto-Test-Data/1/* Data
+./compile-old.sh Programs/innerprod

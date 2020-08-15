@@ -1,0 +1,106 @@
+diff --git a/CONFIG b/CONFIG
+index e177eca..16b84b8 100644
+--- a/CONFIG
++++ b/CONFIG
+@@ -14,7 +14,7 @@ MAX_MOD = 7
+ #   BENCH_MEMORY  = Enable benchmarking of memory 
+ 
+ #FLAGS = -DSH_DEBUG -DDEBUG -DMAX_MOD_SZ=$(MAX_MOD) -DDETERMINISTIC -DBENCH_NETDATA -DBENCH_MEMORY
+-FLAGS = -DMAX_MOD_SZ=$(MAX_MOD) 
++FLAGS = -DMAX_MOD_SZ=$(MAX_MOD) -g
+ 
+ OPT = -O3 
+ 
+diff --git a/Makefile b/Makefile
+index 60bcca1..dda6354 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,10 +1,10 @@
+ all: 
+-	make progs
++	+make progs
+ 	make test
+-	make doc
++#	make doc
+ 
+ progs:
+-	-cd src ; make
++	-cd src ; $(MAKE)
+ 
+ test:
+ 	-cd Test ; make
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 57269b2..440465a 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -20,6 +20,7 @@ add_compile_options(
+         -msse4.1
+         -mavx
+         -march=core2
++	-g
+ )
+ 
+ find_package(MPIR REQUIRED)
+diff --git a/src/Input_Output/Input_Output_Simple.cpp b/src/Input_Output/Input_Output_Simple.cpp
+index 93b2004..75f845d 100644
+--- a/src/Input_Output/Input_Output_Simple.cpp
++++ b/src/Input_Output/Input_Output_Simple.cpp
+@@ -21,11 +21,12 @@ void Input_Output_Simple::close_channel(unsigned int channel)
+ 
+ gfp Input_Output_Simple::private_input_gfp(unsigned int channel)
+ {
+-  cout << "Input channel " << channel << " : ";
+-  word x;
+-  cin >> x;
++//  cout << "Input channel " << channel << " : ";
++//  word x;
++//  cin >> x;
+   gfp y;
+-  y.assign(x);
++//  y.assign(x);
++  y.assign_one();
+   return y;
+ }
+ 
+diff --git a/src/Player.cpp b/src/Player.cpp
+index 120294e..ef67c37 100644
+--- a/src/Player.cpp
++++ b/src/Player.cpp
+@@ -191,6 +191,7 @@ int main(int argc, const char *argv[])
+ 
+   if (opt.isSet("-dOT"))
+     {
++      cout << "disabling OT" << endl;
+       OT_disable= true;
+     }
+ 
+diff --git a/src/config.h b/src/config.h
+index 4b5aca5..779ccb0 100644
+--- a/src/config.h
++++ b/src/config.h
+@@ -57,14 +57,14 @@ All rights reserved
+  * threshold case. This is the one which affects offline 
+  * runtime the most
+  */
+-#define ZK_sound_sec 128
++#define ZK_sound_sec 40
+ 
+ /* The ZKPoK ZK_sec. This gives the statistical
+  * distance between the ZK simulation and the real
+  * distribution of transcripts. This does not affect
+  * parameters or run time that much
+  */
+-#define ZK_ZK_sec 80
++#define ZK_ZK_sec 40
+ 
+ 
+ /* The Distributed Decryption stat_sec
+@@ -72,7 +72,7 @@ All rights reserved
+  * during distributed decryption to uniform in the full
+  * threshold case.
+  */
+-#define DD_stat_sec 80
++#define DD_stat_sec 40
+ 
+ 
+ /* Note stat security parameter for fixed/floating point numbers

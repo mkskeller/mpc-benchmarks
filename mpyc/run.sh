@@ -1,12 +1,14 @@
 #!/bin/bash
 
-cd innerProd
-make
+cd source
 
 run()
 {
-    time ./a.out 1234 -- input1.txt &
-    time ./a.out 1234 localhost input2.txt
+    for i in $(seq 10); do
+	ip -s link show lo 
+	python innerprod.py -M 3
+	ip -s link show lo 
+    done
 }
 
 
@@ -15,7 +17,6 @@ run()
 
 run2()
 {
-    ip -s link show lo 
     run
 }
 

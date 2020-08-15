@@ -1,16 +1,13 @@
 #!/bin/bash
 
-cd innerProd
-make
-
 run()
 {
-    time ./a.out 1234 -- input1.txt &
-    time ./a.out 1234 localhost input2.txt
+    for i in 0 1 2; do
+	time aby3/bin/samples.exe -u innerprod -p $i & true;
+    done;
+
+    wait
 }
-
-
-
 
 
 run2()

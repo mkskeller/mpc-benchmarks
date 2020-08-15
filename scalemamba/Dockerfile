@@ -25,6 +25,8 @@ RUN apt-get update && apt-get install -y \
 ADD install_dependencies.sh .
 RUN ["bash", "install_dependencies.sh"]
 
+RUN git clone https://github.com/KULeuven-COSIC/SCALE-MAMBA.git
+
 ADD source/ /root/source
 ADD install.sh .
 RUN ["bash", "install.sh"]
@@ -34,3 +36,9 @@ ADD README.md .
 ENV PATH ~/.cargo/bin/:${PATH}
 
 CMD ["/bin/bash"]
+
+RUN apt-get install -y iproute2
+
+ADD run-*.sh ./
+RUN "bash" "run-shamir.sh"
+RUN "bash" "run-high.sh"

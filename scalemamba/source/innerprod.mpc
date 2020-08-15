@@ -1,16 +1,17 @@
 n = 100000
 
-sum = sint(0)
+sum = MemValue(sint(0))
 aaaas = sint.Array(n)
 bbbbs = sint.Array(n)
 
-for i in range(n):
-  aaaas[i] = sint.get_private_input_from(0)
-  bbbbs[i] = sint.get_private_input_from(1)
-  
+sint.get_private_input_from(0, size=n).store_in_mem(aaaas.address)
+sint.get_private_input_from(1, size=n).store_in_mem(bbbbs.address)
 
-for i in range(n):
-  sum = sum + (aaaas[i] * bbbbs[i])
+@for_range(10)
+def _(j):
+  for k in range(10000):
+    i = 10000 * j + k
+    sum.iadd(aaaas[i] * bbbbs[i])
 
 print_ln("InnerProd: %s", sum.reveal())
 

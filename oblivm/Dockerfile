@@ -4,7 +4,8 @@ RUN apt-get update && apt-get install -y \
   default-jdk \
   git \
   python \
-  vim
+  vim \
+  iproute2
 
 ADD README.md .
 
