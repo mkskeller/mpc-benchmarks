@@ -14,7 +14,7 @@ run3()
 
 run()
 {
-    cp -av Auto-Test-Data/20/* Data
+    cp -av Auto-Test-Data/18/* Data
     run3
 }
 
