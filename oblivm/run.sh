@@ -22,8 +22,8 @@ run2()
 
 tc qdisc del dev lo root
 
-#run2
-#run2
+run2
+run2
 
 bwlimit=100mbit
 delay=50ms
