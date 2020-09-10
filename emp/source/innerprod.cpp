@@ -7,12 +7,11 @@ int LEN = 100000;
 
 void test_innerprod(int bitsize, string inputs_a[], string inputs_b[], int len) {
 
-    Integer sum(bitsize, 0, PUBLIC);
-    Integer prod(bitsize, 0, PUBLIC);
-	Integer* a = new Integer[len];
-	Integer* b = new Integer[len];
+	Integer sum(bitsize, 0, PUBLIC);
+	Integer prod(bitsize, 0, PUBLIC);
+	Integer *a = new Integer[len];
+	Integer *b = new Integer[len];
 
- 
 	Batcher batcher;
 	for( int i=0; i<len; i++) {
 		a[i] = Integer(bitsize, inputs_a[i], ALICE);
@@ -23,15 +22,16 @@ void test_innerprod(int bitsize, string inputs_a[], string inputs_b[], int len) 
 		b[i] = batcher.next<Integer>();
 	}
 
-   for( int i=0; i<len; i++) {
-        prod = a[i] * b[i];
-        sum = sum + prod;
-    }
 
-    cout << "SUM: " << sum.reveal<int>() << endl;
+	for( int i=0; i<len; i++) {
+		prod = a[i] * b[i];
+		sum = sum + prod;
+	}
 
-    delete[] a;
-    delete[] b;
+	cout << "SUM: " << sum.reveal<int>() << endl;
+	delete[] a;
+	delete[] b;
+
 }
 
 
